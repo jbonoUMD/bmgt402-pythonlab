@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}
+Insert To a Relationship
+{% endblock %}
+
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+
+	<div class="form">
+		<form action="/insert_relationship_process" method="POST">
+			<h1>Parent Table</h1>
+
+			<label>Parent Table</label>
+				<input type="text" name="frm_parentTable" value="">
+			<label>Parent Primary Key Name</label>
+				<input type="text" name="frm_parentPrimaryKey" value="">
+			<label>Parent Primary Key Value</label>
+				<input type="text" name="frm_parentPrimaryKeyValue" value="">
+
+			<h1 style="margin-top: 10px;">Child Table</h1>
+
+			<label>Child Table</label>
+				<input type="text" name="frm_childTable" value="">
+			<label>Child Primary Key Name</label>
+				<input type="text" name="frm_childPrimaryKey" value="">
+			<label>Child Foreign Key Name</label>
+				<input type="text" name="frm_childForeignKey" value="">
+			<input type="submit" name="submit" value="Submit" class="abtn">
+		</form>
+	</div>
+	<!-- DO NOT EDIT BELOW THIS LINE -->
+
+{% endblock %}
+

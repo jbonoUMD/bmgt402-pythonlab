@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}
+Delete From a Table
+{% endblock %}
+
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+
+	{% autoescape false %}
+	{% if success is defined and success == True %}
+		<div class="infomsg">
+			<div style="color: green;"><strong><u>Query Attempted => SUCCESS</u></strong></div>
+			{{query}};
+		</div>
+	{% elif success is defined and success == False %}
+		<div class="infomsg">
+			<div style="color: red;"><strong><u>Query Attempted => FAILURE</u></strong></div>
+			{{query}};
+		</div>
+	{% endif %}
+    {% endautoescape %}
+
+	{% if results %}
+	<form action="/delete_one_table_remove_record" method="POST">
+	<table class="formTable">
+		<caption>
+			ROWS FOR <strong>`{{params['frm_tableName']}}`</strong>
+		</caption>
+		<thead>
+			<tr>
+				<td><strong>Delete?</strong></td>
+				{% for each_row in metadata %}
+					<td><strong>{{each_row['COLUMN_NAME']}}</strong></td>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for each_row in results %}
+			<tr>
+				<td><input type="radio" name="frm_deletePrimaryKeyValue" value="{{each_row[params['frm_primaryKeyName']]}}"></td>
+				{% for each_value in each_row %}
+					<td>{{each_value}}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td class="btn" colspan="{{metadata|length + 1}}">
+						<input class="abtn" name="addRecord" type="submit" value="Delete Record">
+				</td>
+			</tr>
+		<input name="frm_tableName" type="hidden" value="{{params['frm_tableName']}}">
+		<input name="frm_primaryKeyName" type="hidden" value="{{params['frm_primaryKeyName']}}">
+
+		</tfoot>
+	</table>
+	</form>
+	{% endif %}
+{% endblock %}
+

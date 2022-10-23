@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}
+Search
+{% endblock %}
+
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+	{% if results %}
+	<table class="formTable">
+		<caption>
+			ROWS FOR <strong>`{{params['frm_tableName']}}`</strong>
+		</caption>
+		<thead>
+			<tr>
+				{% for each_row in metadata %}
+					<td><strong>{{each_row['COLUMN_NAME']}}</strong></td>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for each_row in results %}
+			<tr>
+				{% for each_value in each_row %}
+					<td>{{each_value}}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% endif %}
+
+	<div class="form">
+		<h1>{{"Refine " if results}}Search</h1>
+		<form action="/search" method="POST">
+			<label>Table Name</label>
+				<input type="text" name="frm_tableName" value="{{params['frm_tableName']}}" required>
+			<label>Column Name</label>
+				<input type="text" name="frm_colName" value="{{params['frm_colName']}}" required>
+			<label>Operator</label>
+				<select name="frm_operator">
+					<option{{" selected" if params['frm_operator'] == ">"}}>></option>
+					<option{{" selected" if params['frm_operator'] == ">="}}>>=</option>
+					<option{{" selected" if params['frm_operator'] == "<"}}><</option>
+					<option{{" selected" if params['frm_operator'] == "<="}}><=</option>
+					<option{{" selected" if params['frm_operator'] == "="}}>=</option>
+					<option{{" selected" if params['frm_operator'] == "<>"}}><></option>
+					<option{{" selected" if params['frm_operator'] == "LIKE"}}>LIKE</option>
+					<option{{" selected" if params['frm_operator'] == "NOT LIKE"}}>NOT LIKE</option>
+				</select>
+			<label>Comparison Value</label>
+				<input type="text" name="frm_colVal" value="{{params['frm_colVal']}}" required>
+			<input type="submit" name="submit" value="Submit" class="abtn">
+		</form>
+	</div>
+	<!-- DO NOT EDIT BELOW THIS LINE -->
+{% endblock %}
+

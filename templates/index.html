@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+Home
+{% endblock %}
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+	<div class= "myImg">
+		<img src="{{ url_for('static',filename='images/rsmith.jpg') }}" alt="No Image Found">
+	</div>
+
+	<a href="search">
+		<button class="abtn">Search A Table</button>
+	</a>
+
+	<a href="/insert_one_table">
+		<button class="abtn">Insert To A Table</button>
+	</a>
+
+	<a href="/insert_relationship">
+		<button class="abtn">Insert To A Relationship</button>
+	</a>
+
+	<a href="/delete_one_table">
+		<button class="abtn">Delete From A Table</button>
+	</a>
+	<!-- DO NOT EDIT BELOW THIS LINE -->
+{% endblock %}
+

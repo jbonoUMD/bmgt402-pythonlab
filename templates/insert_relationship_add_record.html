@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}
+Insert To a Relationship
+{% endblock %}
+
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+
+	{% autoescape false %}
+	{% if success == True %}
+		<div class="infomsg">
+			<div style="color: green;"><strong><u>Query Attempted => SUCCESS</u></strong></div>
+			{{query}};
+		</div>
+	{% else %}
+		<div class="infomsg">
+			<div style="color: red;"><strong><u>Query Attempted => FAILURE</u></strong></div>
+			{{query}};
+		</div>
+	{% endif %}
+    {% endautoescape %}
+
+	{% if parent_results %}
+	<table class="formTable">
+		<caption>
+			ROWS FOR <strong>`{{params['frm_parentTable']}}`</strong>
+		</caption>
+		<thead>
+			<tr>
+				{% for each_row in parent_metadata %}
+					<td><strong>{{each_row['COLUMN_NAME']}}</strong></td>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for each_row in parent_results %}
+			<tr>
+				{% for each_value in each_row %}
+					<td>{{each_value}}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+	<form action="/insert_relationship_add_record" method="POST">
+		<table class="formTable">
+			<caption>
+				ROWS FOR <strong>`{{params['frm_childTable']}}`</strong>
+			</caption>
+			<thead>
+				<tr>
+					{% for each_row in child_metadata %}
+						<td><strong>{{each_row['COLUMN_NAME']}}</strong></td>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for each_row in child_results %}
+				<tr>
+					{% for each_value in each_row %}
+						<td>{{each_value}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+				<tr>
+					{% for each_row in child_metadata %}
+					<td>
+						{% if each_row['IDENTITY_SPECIFICATION'] == 1 %}
+						Auto-Generated
+						{% else %}
+							{% if each_row['DATA_TYPE'] in ['smalldatetime', 'datetime', 'datetime2'] %}
+								<input type="datetime-local" name="new_{{each_row['COLUMN_NAME']}}" placeholder="{{each_row['COLUMN_NAME']}}" required=""><input type="hidden" name="dt_{{each_row['COLUMN_NAME']}}" value="1">
+							{% else %}
+								<input type="text" name="new_{{each_row['COLUMN_NAME']}}" placeholder="{{each_row['COLUMN_NAME']}}" required="">
+							{% endif %}
+						{% endif %}
+				</td>
+				{% endfor %}
+			</tr>
+			</tbody>
+		<tfoot>
+			<tr>
+				<td class="btn" colspan="{{parent_metadata|length}}">
+						<input class="abtn" name="addRecord" type="submit" value="Add New Record">
+				</td>
+			</tr>
+		</table>
+		<input name="frm_parentTable" type="hidden" value="{{params['frm_parentTable']}}">
+		<input name="frm_parentPrimaryKey" type="hidden" value="{{params['frm_parentPrimaryKey']}}">
+		<input name="frm_parentPrimaryKeyValue" type="hidden" value="{{params['frm_parentPrimaryKeyValue']}}">
+		<input name="frm_childTable" type="hidden" value="{{params['frm_childTable']}}">
+		<input name="frm_childPrimaryKey" type="hidden" value="{{params['frm_childPrimaryKey']}}">
+		<input name="frm_childForeignKey" type="hidden" value="{{params['frm_childForeignKey']}}">
+
+
+
+
+		</tfoot>
+	</table>
+	</form>
+	{% endif %}
+{% endblock %}
+

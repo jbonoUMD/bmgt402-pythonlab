@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+Delete From a Table
+{% endblock %}
+
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+	<div class="form">
+		<h1>Delete from a Table</h1>
+		<form action="/delete_one_table_process" method="POST">
+			<label>Table Name</label>
+				<input type="text" name="frm_tableName" value="" required>
+			<label>Primary Key Name</label>
+				<input type="text" name="frm_primaryKeyName" value="" required>
+			<input type="submit" name="submit" value="Submit" class="abtn">
+		</form>
+	</div>
+	<!-- DO NOT EDIT BELOW THIS LINE -->
+{% endblock %}
+

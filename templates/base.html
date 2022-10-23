@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>BMGT402 Lab - {% block title %}{% endblock %}</title>
+		<link type="text/css" href="{{ url_for('static',filename='css/layout.css') }}" rel="stylesheet">
+		<link type="text/css" href="{{ url_for('static',filename='css/custom.css') }}" rel="stylesheet">
+		<link rel="icon" href="{{ url_for('static',filename='images/favicon.ico') }}" type="image/vnd.microsoft.icon" />
+	</head>
+	<body>
+	<header>
+    <div id="logo">
+      <a href="./" title="Home" rel="home"><img src="{{ url_for('static',filename='images/umd.jpeg') }}" alt="Logo" /></a>
+    </div>
+    <div id="site-name">
+      Trip Planning System (TPS)
+    </div>
+    <div id="site-slogan">
+      A BMGT402 Information System Prototype
+    </div>
+	<nav id="navbar">
+      <ul>
+        <li><a href="./" title="Home" rel="home">Home</a></li>
+      </ul>
+	  </nav>
+	  </header>
+	   <article>
+	   		<div class="article-border">
+				{% block article %}
+				{% endblock %}
+			</div>
+		</article>
+	<footer>
+		<div class="footer-text">
+  			<div style="float: left;">
+    			&copy; {{ now.year }}
+    			<a href="https://terpconnect.umd.edu/~jbono/" target="_blank">Dr. John Bono</a>. All Rights Reserved.
+				<em>Modified by <strong>&lt;STUDENT NAME&gt;</strong> for BMGT402 Lab.</em>
+    	    </div>
+			<div style="float: right;">
+				<span style="font-size:0.75em;">Powered by:</span><br /><a href="https://palletsprojects.com/p/flask/" target="_blank"> <img src="{{ url_for('static',filename='images/flask.png') }}" width="128" height="50" alt="Flask logo" /> </a>
+			</div>
+		</div>
+	</footer>
+</body>

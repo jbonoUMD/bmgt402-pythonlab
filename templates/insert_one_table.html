@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+Insert To a Table
+{% endblock %}
+
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+	<div class="form">
+		<h1>Insert to a Table</h1>
+		<form action="/insert_one_table_process" method="POST">
+			<label>Table Name</label>
+				<input type="text" name="frm_tableName" value="" required>
+			<input type="submit" name="submit" value="Submit" class="abtn">
+		</form>
+	</div>
+	<!-- DO NOT EDIT BELOW THIS LINE -->
+{% endblock %}
+

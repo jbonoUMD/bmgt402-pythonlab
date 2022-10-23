@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}
+Insert To a Table
+{% endblock %}
+
+{%block article %}
+	<!-- DO NOT EDIT ABOVE THIS LINE -->
+	{% autoescape false %}
+	{% if success is defined and success == True %}
+		<div class="infomsg">
+			<div style="color: green;"><strong><u>Query Attempted => SUCCESS</u></strong></div>
+			{{query}};
+		</div>
+	{% elif success is defined and success == False %}
+		<div class="infomsg">
+			<div style="color: red;"><strong><u>Query Attempted => FAILURE</u></strong></div>
+			{{query}};
+		</div>
+	{% endif %}
+    {% endautoescape %}
+
+	{% if results %}
+	<form action="/insert_one_table_add_record" method="POST">
+	<table class="formTable">
+		<caption>
+			ROWS FOR <strong>`{{params['frm_tableName']}}`</strong>
+		</caption>
+		<thead>
+			<tr>
+				{% for each_row in metadata %}
+					<td><strong>{{each_row['COLUMN_NAME']}}</strong></td>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for each_row in results %}
+			<tr>
+				{% for each_value in each_row %}
+					<td>{{each_value}}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+			<tr>
+				{% for each_row in metadata %}
+				<td>
+					{% if each_row['IDENTITY_SPECIFICATION'] == 1 %}
+					Auto-Generated
+					{% else %}
+						{% if each_row['DATA_TYPE'] in ['smalldatetime', 'datetime', 'datetime2'] %}
+							<input type="datetime-local" name="new_{{each_row['COLUMN_NAME']}}" placeholder="{{each_row['COLUMN_NAME']}}" required=""><input type="hidden" name="dt_{{each_row['COLUMN_NAME']}}" value="1">
+						{% else %}
+							<input type="text" name="new_{{each_row['COLUMN_NAME']}}" placeholder="{{each_row['COLUMN_NAME']}}" required="">
+						{% endif %}
+					{% endif %}
+				</td>
+				{% endfor %}
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td class="btn" colspan="{{metadata|length}}">
+						<input class="abtn" name="addRecord" type="submit" value="Add New Record">
+				</td>
+			</tr>
+		<input name="frm_tableName" type="hidden" value="{{params['frm_tableName']}}">
+
+		</tfoot>
+	</table>
+	</form>
+	{% endif %}
+{% endblock %}
+
