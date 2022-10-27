@@ -2,8 +2,8 @@ import pyodbc
 
 
 def get_connection():
-    sql_conn = pyodbc.connect('Driver=SQL Server;Server=rhsmith.umd.edu,9402; \
-                               Database=BMGT402_Student_DB_nnn;Trusted_Connection=yes;')
+    sql_conn = pyodbc.connect('Driver=SQL Server;Server=doitsqlx.rhsmith.umd.edu,9402; \
+                               Database=BMGT402_DB_Student_nnn;Trusted_Connection=yes;')
     cursor = sql_conn.cursor()
     return cursor
 
