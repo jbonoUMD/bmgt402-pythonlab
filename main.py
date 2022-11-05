@@ -27,7 +27,7 @@ def search():
         cursor = db.get_connection()
         metadata = db.get_metadata(cursor, sql_table_name)
         results = db.execute_query(cursor, f"SELECT * FROM {sql_table_name} \
-                                             WHERE {sql_column_name} {sql_operator} {sql_column_value}")
+                                             WHERE {sql_column_name} {sql_operator} ?", sql_column_value)
 
         return render_template('search.html', params=request.form, metadata=metadata, results=results)
 
@@ -93,6 +93,7 @@ def insert_relationship_process():
 
     parent_results = db.execute_query(cursor, f"SELECT * FROM {sql_parent_table} \
                                                WHERE {sql_parent_primary_key} = {sql_parent_primary_key_value}")
+
     child_results = db.execute_query(cursor, f"SELECT * FROM {sql_child_table} \
                                                WHERE {sql_child_foreign_key} = {sql_parent_primary_key_value}")
 
@@ -178,4 +179,4 @@ if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
 
     app.debug = True
-    app.run(host='localhost', port=9402)
+    app.run(host='localhost', port=9000)
