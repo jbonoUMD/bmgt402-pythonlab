@@ -6,12 +6,12 @@ Insert To a Relationship
 {%block article %}
 	<!-- DO NOT EDIT ABOVE THIS LINE -->
 	{% autoescape false %}
-	{% if success == True %}
+	{% if success is defined and success == True %}
 		<div class="infomsg">
 			<div style="color: green;"><strong><u>Query Attempted => SUCCESS</u></strong></div>
 			{{query}};
 		</div>
-	{% else %}
+	{% elif success is defined and success == False %}
 		<div class="infomsg">
 			<div style="color: red;"><strong><u>Query Attempted => FAILURE</u></strong></div>
 			{{query}};
