@@ -19,8 +19,12 @@ def fetch_all(cursor, table_name):
     return execute_query(cursor, f"SELECT * FROM {table_name}")
 
 
-def execute_query(cursor, sql):
+def execute_query(cursor, sql, params=''):
     cursor.execute(sql)
+    if params == '':
+        cursor.fetchall()
+    else:
+        cursor.execute(sql, params)
     results = cursor.fetchall()
     return results
 
