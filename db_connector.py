@@ -2,10 +2,9 @@ import pyodbc
 
 
 def get_connection():
-    #sql_conn = pyodbc.connect('Driver=SQL Server;Server=doitsqlx.rhsmith.umd.edu,9402; \
-    #                           Database=BMGT402_DB_Student_nnn;Trusted_Connection=yes;')
-    sql_conn = pyodbc.connect('Driver=SQL Server;Server=DC\SQLX; \
-                               Database=BMGT402_PythonLab;Trusted_Connection=yes;')
+    sql_conn = pyodbc.connect('Driver=SQL Server;Server=doitsqlx.rhsmith.umd.edu,9402; \
+                               Database=BMGT402_DB_Student_nnn;Trusted_Connection=yes;')
+
     cursor = sql_conn.cursor()
     return cursor
 
@@ -31,10 +30,10 @@ def execute_query(cursor, sql, params=''):
 
 
 def update_query(cursor, sql):
-    try:
-        cursor.execute(sql)
-        cursor.commit()
-        success = True
-    except:
-        success = False
+    #try:
+    cursor.execute(sql)
+    cursor.commit()
+    success = True
+    #except:
+    #    success = False
     return success
