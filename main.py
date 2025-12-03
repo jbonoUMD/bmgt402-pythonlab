@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.context_processor
 def inject_now():
-    return {'now': dt.datetime.utcnow()}
+    return {'now': dt.datetime.now(dt.timezone.utc)}
 
 
 @app.route('/')
